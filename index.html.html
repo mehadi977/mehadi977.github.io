@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mehadi Hassan — CS Student & Competitive Programmer</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@300;400;500;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+
+:root{
+  --bg:#030712;
+  --bg2:#060e1f;
+  --cyan:#00e5ff;
+  --cyan2:#67eeff;
+  --cyan3:rgba(0,229,255,0.08);
+  --cyan4:rgba(0,229,255,0.15);
+  --blue:#0ea5e9;
+  --purple:#818cf8;
+  --text:#f0f6ff;
+  --text2:#8899bb;
+  --text3:#3a4a66;
+  --glass:rgba(255,255,255,0.04);
+  --glass2:rgba(255,255,255,0.07);
+  --border:rgba(0,229,255,0.12);
+  --border2:rgba(255,255,255,0.06);
+  --glow:0 0 40px rgba(0,229,255,0.15);
+  --font-head:'Cabinet Grotesk',sans-serif;
+  --font-body:'Cabinet Grotesk',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+}
+
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);overflow-x:hidden;cursor:none;}
+
+/* ── BG ORBS ── */
+.orb{position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0;}
+.orb1{width:600px;height:600px;background:radial-gradient(circle,rgba(0,229,255,0.07),transparent 70%);top:-200px;right:-100px;}
+.orb2{width:500px;height:500px;background:radial-gradient(circle,rgba(14,165,233,0.06),transparent 70%);bottom:-100px;left:-150px;}
+.orb3{width:300px;height:300px;background:radial-gradient(circle,rgba(129,140,248,0.05),transparent 70%);top:50%;left:40%;}
+
+/* ── CURSOR ── */
+#dot{position:fixed;width:6px;height:6px;background:var(--cyan);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s;}
+#ring{position:fixed;width:24px;height:24px;border:1px solid rgba(0,229,255,0.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .08s ease;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1rem 3rem;
+  background:rgba(3,7,18,0.7);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border2);
+}
+.nav-logo{font-family:var(--font-mono);font-size:.85rem;letter-spacing:.15em;color:var(--cyan);font-weight:500;}
+.nav-logo span{color:var(--text3);margin:0 .3rem;}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{text-decoration:none;color:var(--text2);font-size:.75rem;letter-spacing:.12em;font-family:var(--font-mono);text-transform:uppercase;transition:color .2s;}
+.nav-links a:hover{color:var(--cyan);}
+.nav-pill{
+  background:var(--cyan3);border:1px solid var(--border);
+  padding:.35rem .9rem;font-family:var(--font-mono);font-size:.62rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);
+  display:flex;align-items:center;gap:.4rem;
+}
+.nav-pill-dot{width:5px;height:5px;background:var(--cyan);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(0,229,255,.4);}50%{opacity:.6;box-shadow:0 0 0 4px rgba(0,229,255,0);}}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:grid;grid-template-columns:1.1fr 0.9fr;align-items:center;
+  padding:7rem 3rem 3rem;gap:3rem;
+  position:relative;z-index:1;
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:var(--font-mono);font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:1.5rem;
+  opacity:0;animation:fadeUp .6s .1s forwards;
+}
+.hero-tag::before{content:'';width:20px;height:1px;background:var(--cyan);}
+.hero-name{
+  font-family:var(--font-head);font-weight:800;
+  font-size:clamp(3.2rem,7vw,6.5rem);line-height:1;
+  letter-spacing:-.03em;margin-bottom:.5rem;
+  opacity:0;animation:fadeUp .6s .25s forwards;
+}
+.hero-name .first{display:block;color:var(--text);}
+.hero-name .last{
+  display:block;
+  background:linear-gradient(135deg,var(--cyan),var(--blue),var(--purple));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-role{
+  font-family:var(--font-mono);font-size:.8rem;color:var(--text2);
+  letter-spacing:.08em;margin-bottom:1.8rem;
+  opacity:0;animation:fadeUp .6s .4s forwards;
+}
+.hero-desc{
+  font-size:1rem;line-height:1.85;color:var(--text2);
+  max-width:460px;margin-bottom:2.5rem;font-weight:300;
+  opacity:0;animation:fadeUp .6s .55s forwards;
+}
+.hero-desc strong{color:var(--cyan);font-weight:500;}
+.hero-btns{display:flex;gap:1rem;opacity:0;animation:fadeUp .6s .7s forwards;}
+.btn{
+  padding:.75rem 1.8rem;font-family:var(--font-mono);font-size:.72rem;
+  letter-spacing:.1em;text-transform:uppercase;text-decoration:none;
+  transition:all .25s;display:inline-flex;align-items:center;gap:.5rem;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--cyan),var(--blue));
+  color:#030712;font-weight:600;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,229,255,.25);}
+.btn-secondary{
+  border:1px solid var(--border);color:var(--text2);
+  background:var(--glass);backdrop-filter:blur(10px);
+}
+.btn-secondary:hover{border-color:var(--cyan);color:var(--cyan);}
+
+/* hero mini stats */
+.hero-mini-stats{
+  display:flex;gap:2rem;margin-top:2.5rem;padding-top:2rem;
+  border-top:1px solid var(--border2);
+  opacity:0;animation:fadeUp .6s .85s forwards;
+}
+.mini-stat-num{font-family:var(--font-head);font-size:1.8rem;font-weight:800;color:var(--cyan);line-height:1;}
+.mini-stat-label{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-top:.3rem;}
+
+/* ── PROFILE CARD (hero right) ── */
+.profile-card{
+  background:var(--glass);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border:1px solid var(--border);
+  padding:2rem;
+  position:relative;overflow:hidden;
+  opacity:0;animation:fadeUp .6s .4s forwards;
+}
+.profile-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--cyan),transparent);
+}
+.profile-card::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(0,229,255,.04),transparent);
+  pointer-events:none;
+}
+.pc-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border2);}
+.pc-avatar{
+  width:52px;height:52px;
+  background:linear-gradient(135deg,var(--cyan),var(--blue));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-head);font-size:1.3rem;font-weight:800;
+  color:#030712;flex-shrink:0;
+}
+.pc-name{font-family:var(--font-head);font-size:1.1rem;font-weight:700;color:var(--text);}
+.pc-handle{font-family:var(--font-mono);font-size:.62rem;color:var(--cyan);margin-top:.2rem;letter-spacing:.08em;}
+.pc-badge{
+  margin-left:auto;background:var(--cyan3);border:1px solid var(--border);
+  padding:.2rem .55rem;font-family:var(--font-mono);font-size:.58rem;
+  letter-spacing:.1em;color:var(--cyan);text-transform:uppercase;white-space:nowrap;
+}
+.pc-rows{display:flex;flex-direction:column;gap:.8rem;}
+.pc-row{display:flex;justify-content:space-between;align-items:center;}
+.pc-row-label{font-family:var(--font-mono);font-size:.65rem;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;}
+.pc-row-val{font-family:var(--font-mono);font-size:.78rem;color:var(--text);font-weight:500;}
+.pc-row-val.hi{color:var(--cyan);}
+.pc-divider{height:1px;background:var(--border2);margin:.5rem 0;}
+.pc-platforms{display:flex;flex-direction:column;gap:.5rem;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border2);}
+.pc-plat{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:.5rem .75rem;background:var(--glass2);border:1px solid var(--border2);
+}
+.pc-plat-name{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;}
+.pc-plat-name.lc{color:#fbbf24;} .pc-plat-name.cf{color:#f87171;} .pc-plat-name.cc{color:#4ade80;}
+.pc-plat-val{font-family:var(--font-mono);font-size:.65rem;color:var(--text2);}
+
+/* ── SECTION BASE ── */
+.section{padding:5rem 3rem;position:relative;z-index:1;}
+.section.alt{background:rgba(6,14,31,0.6);}
+.sec-eyebrow{
+  font-family:var(--font-mono);font-size:.65rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--cyan);margin-bottom:.8rem;
+  display:flex;align-items:center;gap:.75rem;
+}
+.sec-eyebrow::before{content:'';width:24px;height:1px;background:var(--cyan);}
+.sec-heading{
+  font-family:var(--font-head);font-size:clamp(2rem,4vw,3.2rem);
+  font-weight:800;letter-spacing:-.02em;line-height:1.05;margin-bottom:3rem;
+}
+.sec-heading span{
+  background:linear-gradient(135deg,var(--cyan),var(--blue));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+
+/* ── ABOUT ── */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;}
+.about-text p{font-size:.95rem;line-height:1.9;color:var(--text2);font-weight:300;margin-bottom:1rem;}
+.about-text p strong{color:var(--cyan);font-weight:500;}
+.about-chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.5rem;}
+.chip{
+  background:var(--glass);border:1px solid var(--border);
+  padding:.35rem .9rem;font-family:var(--font-mono);font-size:.65rem;
+  letter-spacing:.08em;color:var(--text2);text-transform:uppercase;
+  transition:all .2s;
+}
+.chip:hover{border-color:var(--cyan);color:var(--cyan);background:var(--cyan3);}
+.about-facts{display:flex;flex-direction:column;gap:1px;background:var(--border2);}
+.fact{
+  background:var(--glass);backdrop-filter:blur(10px);
+  padding:1.4rem 1.8rem;display:flex;justify-content:space-between;align-items:center;
+  border:1px solid transparent;transition:all .2s;
+}
+.fact:hover{background:var(--glass2);border-color:var(--border);}
+.fact-label{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);}
+.fact-val{font-family:var(--font-mono);font-size:.78rem;color:var(--text);font-weight:500;}
+.fact-val.cyan{color:var(--cyan);}
+
+/* ── STATS ── */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:3rem;}
+.stat-glass{
+  background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid var(--border);padding:2rem 1.5rem;text-align:center;
+  position:relative;overflow:hidden;transition:all .3s;
+}
+.stat-glass::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--cyan),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.stat-glass:hover{border-color:rgba(0,229,255,.3);box-shadow:var(--glow);}
+.stat-glass:hover::before{opacity:1;}
+.sg-num{
+  font-family:var(--font-head);font-size:3rem;font-weight:800;line-height:1;
+  background:linear-gradient(135deg,var(--cyan),var(--blue));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.sg-label{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text3);margin-top:.5rem;}
+.sg-sub{font-family:var(--font-mono);font-size:.58rem;color:var(--text3);margin-top:.25rem;opacity:.6;}
+
+.platforms-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+.plat-card{
+  background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid var(--border);padding:2rem;
+  position:relative;overflow:hidden;transition:all .3s;
+}
+.plat-card:hover{transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.4),var(--glow);}
+.plat-card::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(0,229,255,.04),transparent);
+  pointer-events:none;
+}
+.plat-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem;}
+.plat-name{font-family:var(--font-head);font-size:1.3rem;font-weight:800;letter-spacing:.02em;}
+.plat-name.lc{color:#fbbf24;} .plat-name.cf{color:#f87171;} .plat-name.cc{color:#4ade80;}
+.plat-badge{
+  font-family:var(--font-mono);font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;
+  padding:.2rem .5rem;
+}
+.plat-badge.live{background:rgba(74,222,128,.1);color:#4ade80;border:1px solid rgba(74,222,128,.25);}
+.plat-handle{font-family:var(--font-mono);font-size:.62rem;color:var(--text3);margin-top:.2rem;letter-spacing:.06em;}
+.plat-stats{display:flex;flex-direction:column;gap:.7rem;}
+.ps-row{display:flex;justify-content:space-between;align-items:baseline;padding:.6rem 0;border-bottom:1px solid var(--border2);}
+.ps-row:last-child{border:none;}
+.ps-label{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);}
+.ps-val{font-family:var(--font-head);font-size:1.5rem;font-weight:700;}
+.plat-card.lc .ps-val{color:#fbbf24;} .plat-card.cf .ps-val{color:#f87171;} .plat-card.cc .ps-val{color:#4ade80;}
+.ps-val.sm{font-size:.85rem;font-family:var(--font-mono);}
+
+/* ── SKILLS ── */
+.skills-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:3rem;align-items:start;}
+.skill-tiers{display:flex;flex-direction:column;gap:.75rem;}
+.tier-card{
+  background:var(--glass);backdrop-filter:blur(12px);
+  border:1px solid var(--border);padding:1.5rem;
+  position:relative;overflow:hidden;
+}
+.tier-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;}
+.tier-card.adv::before{background:linear-gradient(180deg,#f87171,#fca5a5);}
+.tier-card.int::before{background:linear-gradient(180deg,var(--cyan),var(--blue));}
+.tier-card.fun::before{background:linear-gradient(180deg,#4ade80,#86efac);}
+.tier-head{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;margin-bottom:1rem;}
+.tier-card.adv .tier-head{color:#f87171;} .tier-card.int .tier-head{color:var(--cyan);} .tier-card.fun .tier-head{color:#4ade80;}
+.tier-tags{display:flex;flex-wrap:wrap;gap:.35rem;}
+.stag{font-family:var(--font-mono);font-size:.6rem;padding:.25rem .6rem;white-space:nowrap;}
+.stag.adv{background:rgba(248,113,113,.08);color:#fca5a5;border:1px solid rgba(248,113,113,.2);}
+.stag.int{background:var(--cyan3);color:var(--cyan2);border:1px solid var(--border);}
+.stag.fun{background:rgba(74,222,128,.08);color:#86efac;border:1px solid rgba(74,222,128,.2);}
+.stag .cnt{opacity:.5;margin-left:2px;}
+
+.skill-bars-wrap{display:flex;flex-direction:column;gap:1rem;}
+.sbar{display:grid;grid-template-columns:1fr auto;gap:.5rem 1rem;align-items:center;}
+.sbar-top{display:flex;justify-content:space-between;align-items:baseline;}
+.sbar-name{font-family:var(--font-mono);font-size:.68rem;color:var(--text2);letter-spacing:.04em;}
+.sbar-cnt{font-family:var(--font-mono);font-size:.6rem;color:var(--text3);}
+.sbar-track{height:3px;background:rgba(255,255,255,.05);border-radius:2px;overflow:hidden;margin-top:.3rem;}
+.sbar-fill{height:100%;border-radius:2px;transform:scaleX(0);transform-origin:left;transition:transform 1.2s cubic-bezier(.16,1,.3,1);}
+.sbar-fill.animated{transform:scaleX(1);}
+.sbar-fill.adv{background:linear-gradient(90deg,#f87171,#fca5a5);}
+.sbar-fill.int{background:linear-gradient(90deg,var(--cyan),var(--blue));}
+.sbar-fill.fun{background:linear-gradient(90deg,#4ade80,#86efac);}
+
+/* ── CONTACT ── */
+.contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+.contact-left h2{font-family:var(--font-head);font-size:clamp(2.5rem,5vw,4.5rem);font-weight:800;letter-spacing:-.03em;line-height:1;}
+.contact-left h2 span{background:linear-gradient(135deg,var(--cyan),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.contact-left p{font-size:.9rem;line-height:1.9;color:var(--text2);font-weight:300;margin-top:1.5rem;max-width:380px;}
+.contact-links{display:flex;flex-direction:column;gap:.6rem;}
+.clink{
+  background:var(--glass);backdrop-filter:blur(12px);
+  border:1px solid var(--border);
+  padding:1.2rem 1.5rem;display:flex;justify-content:space-between;align-items:center;
+  text-decoration:none;color:var(--text);transition:all .25s;
+  position:relative;overflow:hidden;
+}
+.clink::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--cyan);transform:scaleY(0);transform-origin:bottom;transition:transform .25s;}
+.clink:hover{border-color:var(--border);background:var(--glass2);padding-left:1.9rem;}
+.clink:hover::before{transform:scaleY(1);}
+.clink:hover .clink-arrow{color:var(--cyan);transform:translate(3px,-3px);}
+.clink-left{}
+.clink-platform{font-family:var(--font-head);font-size:1rem;font-weight:700;letter-spacing:.04em;color:var(--text);}
+.clink-handle{font-family:var(--font-mono);font-size:.62rem;color:var(--text3);margin-top:.15rem;letter-spacing:.04em;}
+.clink-arrow{font-size:1rem;color:var(--text3);transition:all .2s;}
+
+/* ── FOOTER ── */
+footer{
+  border-top:1px solid var(--border2);padding:1.5rem 3rem;
+  display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--font-mono);font-size:.63rem;color:var(--text3);
+  position:relative;z-index:1;
+}
+
+/* ── TICKER ── */
+.ticker{background:rgba(0,229,255,.03);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:.65rem 0;overflow:hidden;white-space:nowrap;position:relative;z-index:1;}
+.ticker-inner{display:inline-flex;gap:3rem;animation:tick 28s linear infinite;}
+.ti{font-family:var(--font-mono);font-size:.63rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);}
+.ti b{color:var(--cyan);font-weight:400;margin-left:.3rem;}
+.ticker-sep{color:var(--text3);opacity:.3;}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.on{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:.1s;} .reveal-delay-2{transition-delay:.2s;} .reveal-delay-3{transition-delay:.3s;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  nav{padding:1rem 1.5rem;}
+  .nav-links{display:none;}
+  .hero,.about-grid,.skills-grid,.contact-layout{grid-template-columns:1fr;}
+  .section{padding:4rem 1.5rem;}
+  .hero{padding:6rem 1.5rem 3rem;}
+  .stats-row{grid-template-columns:repeat(2,1fr);}
+  .platforms-grid{grid-template-columns:1fr;}
+  footer{flex-direction:column;gap:.6rem;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+<div id="dot"></div>
+<div id="ring"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">MH<span>/</span>977</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#stats">Stats</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-pill"><div class="nav-pill-dot"></div>Available</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div style="position:relative;z-index:2;">
+    <div class="hero-tag">CS Student & Competitive Programmer</div>
+    <div class="hero-name">
+      <span class="first">Mehadi</span>
+      <span class="last">Hassan</span>
+    </div>
+    <div class="hero-role">@mehadi977 &nbsp;·&nbsp; Dhaka, Bangladesh 🇧🇩</div>
+    <p class="hero-desc">
+      Grinding algorithms and data structures daily.<br>
+      Solving problems across <strong>LeetCode, Codeforces & CodeChef</strong> with C++.<br>
+      Focused on Graph Theory, DP, and DSU.
+    </p>
+    <div class="hero-btns">
+      <a href="#stats" class="btn btn-primary">View Stats ↓</a>
+      <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+    </div>
+    <div class="hero-mini-stats">
+      <div>
+        <div class="mini-stat-num" id="hero-total">291</div>
+        <div class="mini-stat-label">Problems Solved</div>
+      </div>
+      <div>
+        <div class="mini-stat-num">11</div>
+        <div class="mini-stat-label">Day Streak 🔥</div>
+      </div>
+      <div>
+        <div class="mini-stat-num">3</div>
+        <div class="mini-stat-label">Platforms</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Card -->
+  <div class="profile-card">
+    <div class="pc-header">
+      <div class="pc-avatar">MH</div>
+      <div>
+        <div class="pc-name">Mehadi Hassan</div>
+        <div class="pc-handle">@mehadi977</div>
+      </div>
+      <div class="pc-badge">Active</div>
+    </div>
+    <div class="pc-rows">
+      <div class="pc-row">
+        <span class="pc-row-label">Location</span>
+        <span class="pc-row-val">Dhaka, BD 🇧🇩</span>
+      </div>
+      <div class="pc-row">
+        <span class="pc-row-label">Main Language</span>
+        <span class="pc-row-val hi">C++</span>
+      </div>
+      <div class="pc-row">
+        <span class="pc-row-label">Total Solved</span>
+        <span class="pc-row-val hi">291</span>
+      </div>
+      <div class="pc-row">
+        <span class="pc-row-label">CF Streak</span>
+        <span class="pc-row-val hi">11 days 🔥</span>
+      </div>
+      <div class="pc-row">
+        <span class="pc-row-label">C++ Skill Test</span>
+        <span class="pc-row-val hi">93%</span>
+      </div>
+      <div class="pc-row">
+        <span class="pc-row-label">Top DSA Skill</span>
+        <span class="pc-row-val hi">DFS ×25</span>
+      </div>
+    </div>
+    <div class="pc-platforms">
+      <div class="pc-plat">
+        <span class="pc-plat-name lc">LeetCode</span>
+        <span class="pc-plat-val">50 solved · C++</span>
+      </div>
+      <div class="pc-plat">
+        <span class="pc-plat-name cf">Codeforces</span>
+        <span class="pc-plat-val">133 solved · Rating 378</span>
+      </div>
+      <div class="pc-plat">
+        <span class="pc-plat-name cc">CodeChef</span>
+        <span class="pc-plat-val">108 solved · Rating 1006</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ti">LeetCode<b>50 solved</b></span><span class="ticker-sep">·</span>
+    <span class="ti">Codeforces<b>133 solved</b></span><span class="ticker-sep">·</span>
+    <span class="ti">CodeChef<b>108 solved</b></span><span class="ticker-sep">·</span>
+    <span class="ti">Total<b>291 problems</b></span><span class="ticker-sep">·</span>
+    <span class="ti">Streak<b>11 days 🔥</b></span><span class="ticker-sep">·</span>
+    <span class="ti">C++ Skill<b>93%</b></span><span class="ticker-sep">·</span>
+    <span class="ti">DFS<b>×25</b></span><span class="ticker-sep">·</span>
+    <span class="ti">BFS<b>×19</b></span><span class="ticker-sep">·</span>
+    <span class="ti">Trees<b>×17</b></span><span class="ticker-sep">·</span>
+    <span class="ti">Union-Find<b>×6</b></span><span class="ticker-sep">·</span>
+    <!-- repeat -->
+    <span class="ti">LeetCode<b>50 solved</b></span><span class="ticker-sep">·</span>
+    <span class="ti">Codeforces<b>133 solved</b></span><span class="ticker-sep">·</span>
+    <span class="ti">CodeChef<b>108 solved</b></span><span class="ticker-sep">·</span>
+    <span class="ti">Total<b>291 problems</b></span><span class="ticker-sep">·</span>
+    <span class="ti">Streak<b>11 days 🔥</b></span><span class="ticker-sep">·</span>
+    <span class="ti">C++ Skill<b>93%</b></span><span class="ticker-sep">·</span>
+    <span class="ti">DFS<b>×25</b></span><span class="ticker-sep">·</span>
+    <span class="ti">BFS<b>×19</b></span><span class="ticker-sep">·</span>
+    <span class="ti">Trees<b>×17</b></span><span class="ticker-sep">·</span>
+    <span class="ti">Union-Find<b>×6</b></span><span class="ticker-sep">·</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="section alt" id="about">
+  <div class="sec-eyebrow" data-num="01">About Me</div>
+  <div class="sec-heading">Who <span>I Am</span></div>
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <p>I'm a <strong>CS student from Dhaka, Bangladesh</strong> with a deep passion for competitive programming and algorithm design. I've been grinding problems daily across multiple platforms for the past 7 months.</p>
+      <p>My primary weapon is <strong>C++</strong> — I use it for everything from basic data structures to complex graph algorithms. I've also been building web projects with HTML, CSS, and JavaScript, and exploring Python for scripting.</p>
+      <p>I'm always looking to improve my problem-solving skills, participate in contests, and collaborate with other competitive programmers.</p>
+      <div class="about-chips">
+        <span class="chip">C++</span>
+        <span class="chip">Graph Theory</span>
+        <span class="chip">Dynamic Programming</span>
+        <span class="chip">DSU</span>
+        <span class="chip">BFS / DFS</span>
+        <span class="chip">Trees</span>
+        <span class="chip">HTML/CSS/JS</span>
+        <span class="chip">Python</span>
+      </div>
+    </div>
+    <div class="about-facts">
+      <div class="fact">
+        <span class="fact-label">Based in</span>
+        <span class="fact-val">Dhaka, Bangladesh 🇧🇩</span>
+      </div>
+      <div class="fact">
+        <span class="fact-label">Active since</span>
+        <span class="fact-val cyan">7 months ago</span>
+      </div>
+      <div class="fact">
+        <span class="fact-label">This month</span>
+        <span class="fact-val cyan">25 problems solved</span>
+      </div>
+      <div class="fact">
+        <span class="fact-label">Best streak</span>
+        <span class="fact-val cyan">11 days 🔥</span>
+      </div>
+      <div class="fact">
+        <span class="fact-label">CF Contests</span>
+        <span class="fact-val">Participated & rated</span>
+      </div>
+      <div class="fact">
+        <span class="fact-label">C++ Skill Test</span>
+        <span class="fact-val cyan">93% — CodeChef</span>
+      </div>
+      <div class="fact">
+        <span class="fact-label">GitHub</span>
+        <span class="fact-val cyan">github.com/mehadi977</span>
+      </div>
+      <div class="fact">
+        <span class="fact-label">Email</span>
+        <span class="fact-val">mehadi.hsn2@gmail.com</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="section" id="stats">
+  <div class="sec-eyebrow">02</div>
+  <div class="sec-heading">Platform <span>Stats</span></div>
+
+  <div class="stats-row reveal">
+    <div class="stat-glass">
+      <div class="sg-num" id="lc-total">50</div>
+      <div class="sg-label">LeetCode Solved</div>
+      <div class="sg-sub">C++ · 15 solutions</div>
+    </div>
+    <div class="stat-glass">
+      <div class="sg-num">133</div>
+      <div class="sg-label">Codeforces Solved</div>
+      <div class="sg-sub">Rating 378 · Newbie</div>
+    </div>
+    <div class="stat-glass">
+      <div class="sg-num">108</div>
+      <div class="sg-label">CodeChef Solved</div>
+      <div class="sg-sub">Rating 1006 · 1★</div>
+    </div>
+    <div class="stat-glass">
+      <div class="sg-num">291</div>
+      <div class="sg-label">Total Problems</div>
+      <div class="sg-sub">All platforms combined</div>
+    </div>
+  </div>
+
+  <div class="platforms-grid reveal">
+    <div class="plat-card lc">
+      <div class="plat-top">
+        <div>
+          <div class="plat-name lc">LeetCode</div>
+          <div class="plat-handle">@mehadi977</div>
+        </div>
+        <div class="plat-badge live" id="lc-badge">● fetching</div>
+      </div>
+      <div class="plat-stats">
+        <div class="ps-row">
+          <span class="ps-label">Solved (C++)</span>
+          <span class="ps-val" id="lc-solved2">50</span>
+        </div>
+        <div class="ps-row">
+          <span class="ps-label">Solutions</span>
+          <span class="ps-val sm">15 published</span>
+        </div>
+        <div class="ps-row">
+          <span class="ps-label">Top Skill</span>
+          <span class="ps-val sm">DFS × 25</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="plat-card cf">
+      <div class="plat-top">
+        <div>
+          <div class="plat-name cf">Codeforces</div>
+          <div class="plat-handle">@mehadi977 · Dhaka</div>
+        </div>
+        <div class="plat-badge live">● data</div>
+      </div>
+      <div class="plat-stats">
+        <div class="ps-row">
+          <span class="ps-label">Solved</span>
+          <span class="ps-val">133</span>
+        </div>
+        <div class="ps-row">
+          <span class="ps-label">Rating</span>
+          <span class="ps-val">378</span>
+        </div>
+        <div class="ps-row">
+          <span class="ps-label">Best Streak</span>
+          <span class="ps-val sm">11 days 🔥</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="plat-card cc">
+      <div class="plat-top">
+        <div>
+          <div class="plat-name cc">CodeChef</div>
+          <div class="plat-handle">@mehadi977</div>
+        </div>
+        <div class="plat-badge live">● data</div>
+      </div>
+      <div class="plat-stats">
+        <div class="ps-row">
+          <span class="ps-label">Solved</span>
+          <span class="ps-val">108</span>
+        </div>
+        <div class="ps-row">
+          <span class="ps-label">Rating</span>
+          <span class="ps-val">1006</span>
+        </div>
+        <div class="ps-row">
+          <span class="ps-label">C++ Test</span>
+          <span class="ps-val sm">93% ✓</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="section alt" id="skills">
+  <div class="sec-eyebrow">03</div>
+  <div class="sec-heading">DSA <span>Skills</span></div>
+  <p style="font-size:.85rem;color:var(--text2);margin-top:-.5rem;margin-bottom:2.5rem;font-family:var(--font-mono);">— Real data from LeetCode profile</p>
+
+  <div class="skills-grid reveal">
+    <div class="skill-tiers">
+      <div class="tier-card adv">
+        <div class="tier-head">● Advanced</div>
+        <div class="tier-tags">
+          <span class="stag adv">Union-Find<span class="cnt"> ×6</span></span>
+          <span class="stag adv">Dynamic Programming<span class="cnt"> ×3</span></span>
+          <span class="stag adv">Divide &amp; Conquer<span class="cnt"> ×2</span></span>
+          <span class="stag adv">Topological Sort<span class="cnt"> ×2</span></span>
+          <span class="stag adv">Shortest Path<span class="cnt"> ×1</span></span>
+        </div>
+      </div>
+      <div class="tier-card int">
+        <div class="tier-head">● Intermediate</div>
+        <div class="tier-tags">
+          <span class="stag int">DFS<span class="cnt"> ×25</span></span>
+          <span class="stag int">BFS<span class="cnt"> ×19</span></span>
+          <span class="stag int">Tree<span class="cnt"> ×17</span></span>
+          <span class="stag int">Binary Tree<span class="cnt"> ×17</span></span>
+          <span class="stag int">Graph Theory<span class="cnt"> ×6</span></span>
+          <span class="stag int">Hash Table<span class="cnt"> ×5</span></span>
+          <span class="stag int">Math<span class="cnt"> ×4</span></span>
+          <span class="stag int">Recursion<span class="cnt"> ×3</span></span>
+        </div>
+      </div>
+      <div class="tier-card fun">
+        <div class="tier-head">● Fundamental</div>
+        <div class="tier-tags">
+          <span class="stag fun">Stack<span class="cnt"> ×11</span></span>
+          <span class="stag fun">Array<span class="cnt"> ×10</span></span>
+          <span class="stag fun">String<span class="cnt"> ×6</span></span>
+          <span class="stag fun">Linked List<span class="cnt"> ×6</span></span>
+          <span class="stag fun">Matrix<span class="cnt"> ×5</span></span>
+          <span class="stag fun">Two Pointers<span class="cnt"> ×4</span></span>
+          <span class="stag fun">Sorting<span class="cnt"> ×3</span></span>
+          <span class="stag fun">Queue<span class="cnt"> ×2</span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill-bars-wrap" id="sbars">
+      <div class="sbar"><div><div class="sbar-top"><span class="sbar-name">Depth-First Search</span><span class="sbar-cnt">×25</span></div><div class="sbar-track"><div class="sbar-fill int" style="width:100%"></div></div></div></div>
+      <div class="sbar"><div><div class="sbar-top"><span class="sbar-name">Breadth-First Search</span><span class="sbar-cnt">×19</span></div><div class="sbar-track"><div class="sbar-fill int" style="width:76%"></div></div></div></div>
+      <div class="sbar"><div><div class="sbar-top"><span class="sbar-name">Tree</span><span class="sbar-cnt">×17</span></div><div class="sbar-track"><div class="sbar-fill int" style="width:68%"></div></div></div></div>
+      <div class="sbar"><div><div class="sbar-top"><span class="sbar-name">Binary Tree</span><span class="sbar-cnt">×17</span></div><div class="sbar-track"><div class="sbar-fill int" style="width:68%"></div></div></div></div>
+      <div class="sbar"><div><div class="sbar-top"><span class="sbar-name">Stack</span><span class="sbar-cnt">×11</span></div><div class="sbar-track"><div class="sbar-fill fun" style="width:44%"></div></div></div></div>
+      <div class="sbar"><div><div class="sbar-top"><span class="sbar-name">Array</span><span class="sbar-cnt">×10</span></div><div class="sbar-track"><div class="sbar-fill fun" style="width:40%"></div></div></div></div>
+      <div class="sbar"><div><div class="sbar-top"><span class="sbar-name">Union-Find</span><span class="sbar-cnt">×6</span></div><div class="sbar-track"><div class="sbar-fill adv" style="width:24%"></div></div></div></div>
+      <div class="sbar"><div><div class="sbar-top"><span class="sbar-name">Graph Theory</span><span class="sbar-cnt">×6</span></div><div class="sbar-track"><div class="sbar-fill int" style="width:24%"></div></div></div></div>
+      <div class="sbar"><div><div class="sbar-top"><span class="sbar-name">Hash Table</span><span class="sbar-cnt">×5</span></div><div class="sbar-track"><div class="sbar-fill int" style="width:20%"></div></div></div></div>
+      <div class="sbar"><div><div class="sbar-top"><span class="sbar-name">Dynamic Programming</span><span class="sbar-cnt">×3</span></div><div class="sbar-track"><div class="sbar-fill adv" style="width:12%"></div></div></div></div>
+      <div class="sbar"><div><div class="sbar-top"><span class="sbar-name">Topological Sort</span><span class="sbar-cnt">×2</span></div><div class="sbar-track"><div class="sbar-fill adv" style="width:8%"></div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="sec-eyebrow">04</div>
+  <div class="sec-heading">Let's <span>Connect</span></div>
+  <div class="contact-layout reveal">
+    <div class="contact-left">
+      <h2>Get In<br><span>Touch</span></h2>
+      <p>Open to collaborations, competitive programming teams, internships, and new opportunities. Always happy to connect with fellow programmers!</p>
+    </div>
+    <div class="contact-links">
+      <a href="https://leetcode.com/u/mehadi977/" target="_blank" class="clink">
+        <div class="clink-left">
+          <div class="clink-platform" style="color:#fbbf24">LeetCode</div>
+          <div class="clink-handle">leetcode.com/u/mehadi977</div>
+        </div>
+        <div class="clink-arrow">↗</div>
+      </a>
+      <a href="https://codeforces.com/profile/mehadi977" target="_blank" class="clink">
+        <div class="clink-left">
+          <div class="clink-platform" style="color:#f87171">Codeforces</div>
+          <div class="clink-handle">codeforces.com/profile/mehadi977</div>
+        </div>
+        <div class="clink-arrow">↗</div>
+      </a>
+      <a href="https://www.codechef.com/users/mehadi977" target="_blank" class="clink">
+        <div class="clink-left">
+          <div class="clink-platform" style="color:#4ade80">CodeChef</div>
+          <div class="clink-handle">codechef.com/users/mehadi977</div>
+        </div>
+        <div class="clink-arrow">↗</div>
+      </a>
+      <a href="https://github.com/mehadi977" target="_blank" class="clink">
+        <div class="clink-left">
+          <div class="clink-platform">GitHub</div>
+          <div class="clink-handle">github.com/mehadi977</div>
+        </div>
+        <div class="clink-arrow">↗</div>
+      </a>
+      <a href="mailto:mehadi.hsn2@gmail.com" class="clink">
+        <div class="clink-left">
+          <div class="clink-platform" style="color:var(--cyan)">Email</div>
+          <div class="clink-handle">mehadi.hsn2@gmail.com</div>
+        </div>
+        <div class="clink-arrow">↗</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Mehadi Hassan</span>
+  <span style="color:var(--cyan)">@mehadi977</span>
+  <span>Dhaka, Bangladesh 🇧🇩</span>
+</footer>
+
+<script>
+// CURSOR
+const dot=document.getElementById('dot'),ring=document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+(function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+document.querySelectorAll('a,button,.plat-card,.stat-glass,.fact,.clink').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{dot.style.transform='translate(-50%,-50%) scale(2.5)';ring.style.width='40px';ring.style.height='40px';});
+  el.addEventListener('mouseleave',()=>{dot.style.transform='translate(-50%,-50%) scale(1)';ring.style.width='24px';ring.style.height='24px';});
+});
+
+// SCROLL REVEAL
+const ro=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');});},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+// SKILL BARS
+const so=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.querySelectorAll('.sbar-fill').forEach(f=>f.classList.add('animated'));});},{threshold:0.1});
+document.querySelectorAll('#sbars').forEach(el=>so.observe(el));
+
+// LIVE LEETCODE API
+async function fetchLC(){
+  try{
+    const r=await fetch('https://leetcode.com/graphql',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Referer':'https://leetcode.com'},
+      body:JSON.stringify({query:`query($u:String!){matchedUser(username:$u){submitStats{acSubmissionNum{difficulty count}}}}`,variables:{u:'mehadi977'}})
+    });
+    if(!r.ok)throw 0;
+    const d=await r.json();
+    const all=d?.data?.matchedUser?.submitStats?.acSubmissionNum?.find(x=>x.difficulty==='All')?.count;
+    if(all){
+      document.getElementById('lc-total').textContent=all;
+      document.getElementById('lc-solved2').textContent=all;
+      document.getElementById('lc-badge').textContent='● live';
+    }
+  }catch{
+    document.getElementById('lc-badge').textContent='static';
+    document.getElementById('lc-badge').style.background='rgba(255,255,255,.05)';
+    document.getElementById('lc-badge').style.color='var(--text3)';
+  }
+}
+fetchLC();
+</script>
+</body>
+</html>
